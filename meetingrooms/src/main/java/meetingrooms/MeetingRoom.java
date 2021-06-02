@@ -36,13 +36,17 @@ public class MeetingRoom {
         return length;
     }
 
+    public int getArea(){
+        return length * width;
+    }
+
     @Override
     public String toString() {
         return "MeetingRoom{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", width=" + width +
                 ", length=" + length +
+                ", area=" + (length * width) +
                 '}';
     }
 }

@@ -8,11 +8,6 @@ public interface MeetingRoomsRepository {
 
     List<MeetingRoom> findAll();
 
-    List<MeetingRoom> findByName(String name);
-
-    List<MeetingRoom> findByPartOfName(String partOfName);
-
-    List<MeetingRoom> findByArea(int area);
-
+    void deleteAll();
 
 }

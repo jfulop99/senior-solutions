@@ -7,6 +7,9 @@ public class InMemoryMeetingRoomsRepository implements MeetingRoomsRepository{
 
     private List<MeetingRoom> meetingRooms = new ArrayList<>();
 
+    public InMemoryMeetingRoomsRepository() {
+    }
+
     @Override
     public void add(String name, int width, int length) {
         meetingRooms.add(new MeetingRoom(name, width, length));
@@ -14,21 +17,11 @@ public class InMemoryMeetingRoomsRepository implements MeetingRoomsRepository{
 
     @Override
     public List<MeetingRoom> findAll() {
-        return null;
+        return new ArrayList<>(meetingRooms);
     }
 
     @Override
-    public List<MeetingRoom> findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<MeetingRoom> findByPartOfName(String partOfName) {
-        return null;
-    }
-
-    @Override
-    public List<MeetingRoom> findByArea(int area) {
-        return null;
+    public void deleteAll() {
+        meetingRooms.clear();
     }
 }
