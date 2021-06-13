@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class LocationTest {
@@ -118,4 +119,12 @@ class LocationTest {
     }
 
     // Dinamikus tesztek
+
+    @TestFactory
+    Stream<DynamicTest> areOnEquator() {
+        return Stream.of(new Location("Budapest", 0, 0), new Location("Kecskemét", 0, 15),
+                new Location("Pécs", 0, 35), new Location("Szeged", 0, 45))
+                .map(location -> dynamicTest("Is on equator? " + location.getName(),
+                        () -> assertTrue(location.isOnEquator())));
+    }
 }
