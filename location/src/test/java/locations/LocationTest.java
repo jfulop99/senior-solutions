@@ -35,6 +35,43 @@ class LocationTest {
     }
 
     @Test
+    @DisplayName("Test for parse with blank")
+    void testParseWithBlank() {
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> locationParser.parse(""));
+
+        assertEquals("Could not be blank", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("Test for parse with null")
+    void testParseWithNull() {
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> locationParser.parse(null));
+
+        assertEquals("Could not be blank", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("Test for parse with not enough parameters")
+    void testParseWithNotEnoughParameters() {
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> locationParser.parse("Budapest,47.07"));
+
+    }
+
+    @Test
+    @DisplayName("Test for parse with wrong number format")
+    void testParseWithWrongNumber() {
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> locationParser.parse("Budapest,47.07,19x01"));
+
+    }
+
+
+
+
+    @Test
     @DisplayName("Test for isOnEquator")
     void isOnEquatorTest() {
         Location location = locationParser.parse("Ecuador,0,19.040235");

@@ -36,12 +36,20 @@ class LocationServiceTest {
 
     @Test
     void readLocationsFromFileTest() throws URISyntaxException {
-        URL fileUrl = getClass().getResource("/locations.csv");
-        Path file = Path.of(fileUrl.toURI());
-        List<Location> locations = new LocationService().readLocationsFromFile(file);
+
+        // Hamcrest
+
+        List<Location> locations = readLocationsFromFile();
 
         assertThat(locations.size(), equalTo(5));
         assertThat(locations, hasItem(hasProperty("name", equalTo("Budapest"))));
         assertThat(locations, hasItem(hasProperty("name", equalTo("Budapest4"))));
+    }
+
+
+    private List<Location> readLocationsFromFile() throws URISyntaxException {
+        URL fileUrl = getClass().getResource("/locations.csv");
+        Path file = Path.of(fileUrl.toURI());
+        return new LocationService().readLocationsFromFile(file);
     }
 }
