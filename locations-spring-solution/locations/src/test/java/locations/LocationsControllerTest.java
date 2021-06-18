@@ -24,8 +24,11 @@ class LocationsControllerTest {
     @Test
     void getLocationsTest() {
         when(locationsService.getLocations())
-                .thenReturn(List.of(new Location("Bécs",45.497912,19.040235), new Location("Budapest",47.497912,19.040235),
-                new Location("Prága",48.497912,19.040235)));
+                .thenReturn(List.of(
+                        new Location("Bécs",45.497912,19.040235),
+                        new Location("Budapest",47.497912,19.040235),
+                        new Location("Prága",48.497912,19.040235)));
+
         assertThat(locationsController.getLocations()).endsWith("Location{id=null, name='Prága', lat=48.497912, lon=19.040235}");
     }
 }
