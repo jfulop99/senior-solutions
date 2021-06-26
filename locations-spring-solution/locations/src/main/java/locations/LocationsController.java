@@ -18,7 +18,7 @@ public class LocationsController {
     @GetMapping("/locations")
     public String getLocations(){
 
-        return LocalDateTime.now().toString() + "<br />" +
+        return LocalDateTime.now().toString() + " devtools 3 <br />" +
                 locationsService.getLocations()
                 .stream()
                 .map(Location::toString).collect(Collectors.joining("<br />"));
