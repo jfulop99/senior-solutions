@@ -11,9 +11,9 @@ class LocationsServiceTest {
 
     @Test
     void getLocationsTest() {
-        LocationsService locationsService = new LocationsService();
+        LocationsService locationsService = new LocationsService(null);
 
-        String message = locationsService.getLocations().toString();
+        String message = locationsService.getLocationsList().toString();
 
         assertThat(message).startsWith("[Location{id=");
     }

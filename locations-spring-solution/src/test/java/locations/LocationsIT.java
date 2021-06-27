@@ -16,7 +16,7 @@ public class LocationsIT {
 
     @Test
     void getLocations(){
-        String message = locationsController.getLocations();
+        String message = locationsController.getLocationsList();
 
         assertThat(message).startsWith(LocalDate.now().toString());
 
