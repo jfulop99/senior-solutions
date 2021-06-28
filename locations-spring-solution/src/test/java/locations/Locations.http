@@ -17,6 +17,17 @@ Accept: application/json
   "lon": 19.234567
 }
 
+### Validation name
+POST http://localhost:8080/locations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": " ",
+  "lat": 45.23456,
+  "lon": 19.234567
+}
+
 ###
 PUT http://localhost:8080/locations/5
 Content-Type: application/json
