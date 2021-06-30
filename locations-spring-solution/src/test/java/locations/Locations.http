@@ -17,6 +17,15 @@ Accept: application/json
   "lon": 19.234567
 }
 
+###
+POST http://localhost:8080/locations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "NoCoordinate"
+}
+
 ### Validation name
 POST http://localhost:8080/locations
 Content-Type: application/json
