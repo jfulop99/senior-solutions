@@ -1,3 +1,19 @@
+GET http://localhost:8080/api/instruments?price=4000
+Accept: application/json
+
+###
+GET http://localhost:8080/api/instruments?brand=Fender&price=2000
+Accept: application/json
+
+###
+GET http://localhost:8080/api/instruments?brand=Fender
+Accept: application/json
+
+###
+GET http://localhost:8080/api/instruments
+Accept: application/json
+
+###
 POST http://localhost:8080/api/instruments
 Content-Type: application/json
 
@@ -5,6 +21,26 @@ Content-Type: application/json
   "brand": "Fender",
   "type": "ELECTRIC_GUITAR",
   "price": 2000
+}
+
+###
+POST http://localhost:8080/api/instruments
+Content-Type: application/json
+
+{
+  "brand": "Fender",
+  "type": "ELECTRIC_GUITAR",
+  "price": 1000
+}
+
+###
+POST http://localhost:8080/api/instruments
+Content-Type: application/json
+
+{
+  "brand": "Gibson",
+  "type": "ELECTRIC_GUITAR",
+  "price": 4000
 }
 
 ###

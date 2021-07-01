@@ -3,7 +3,6 @@ package org.training360.musicstore;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.beans.IntrospectionException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class MusicStoreService {
 
     public List<InstrumentDTO> getInstruments(Optional<String> brand, Optional<Integer> price) {
         return instruments.stream()
-                .filter(instrument -> (brand.isEmpty() || instrument.getBrand().equals(brand.get())) && (price.isEmpty()) || instrument.getPrice() == price.get())
+                .filter(instrument -> (brand.isEmpty() || instrument.getBrand().equals(brand.get())) && (price.isEmpty() || instrument.getPrice() == price.get()))
                 .map(instrument -> modelMapper.map(instrument, InstrumentDTO.class))
                 .collect(Collectors.toList());
     }
