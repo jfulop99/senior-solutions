@@ -29,7 +29,7 @@ public class LocationsController {
         this.locationsService = locationsService;
     }
 
-    @GetMapping("/locationslist")
+    @GetMapping("/locationsList")
     public String getLocationsList(){
 
         return LocalDateTime.now().toString() + " devtools 3 <br />" +

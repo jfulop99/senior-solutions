@@ -22,7 +22,7 @@ public class LocationControllerRestTemplateIT {
     @Autowired
     LocationsService locationsService;
 
-    @RepeatedTest(2)
+    @RepeatedTest(value = 2)
     void testGetLocations() {
 
         locationsService.deleteAllLocations();
