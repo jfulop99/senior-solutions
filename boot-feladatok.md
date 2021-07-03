@@ -21,9 +21,9 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Státuszkódok és hibakezelés
 * [X] Integrációs tesztelés
 * [X] Swagger UI
-* [ ] Tesztelés Rest Assured használatával
-* [ ] Rest Assured séma validáció
-* [ ] Content Negotiation
+* [X] Tesztelés Rest Assured használatával
+* [X] Rest Assured séma validáció
+* [X] Content Negotiation
 * [ ] Validáció
 * [ ] Spring Boot konfiguráció
 * [ ] Spring Boot naplózás

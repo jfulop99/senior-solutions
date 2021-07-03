@@ -38,11 +38,17 @@ public class LocationsController {
                 .map(Location::toString).collect(Collectors.joining("<br />"));
     }
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<LocationDto> getLocation(
             @RequestParam Optional<String> prefix
             ){
         return locationsService.getLocations(prefix);
+
+//    Content Negotiation XML lista válaszhoz kell
+//    public LocationsDto getLocation(
+//            @RequestParam Optional<String> prefix
+//            ){
+//        return new LocationsDto(locationsService.getLocations(prefix));
     }
 
     @GetMapping("/{id}")
