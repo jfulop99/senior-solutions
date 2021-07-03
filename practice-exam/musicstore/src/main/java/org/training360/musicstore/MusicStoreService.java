@@ -25,7 +25,8 @@ public class MusicStoreService {
 
     public List<InstrumentDTO> getInstruments(Optional<String> brand, Optional<Integer> price) {
         return instruments.stream()
-                .filter(instrument -> (brand.isEmpty() || instrument.getBrand().equals(brand.get())) && (price.isEmpty() || instrument.getPrice() == price.get()))
+                .filter(instrument -> brand.isEmpty() || instrument.getBrand().equals(brand.get()))
+                .filter(instrument -> price.isEmpty() || instrument.getPrice() == price.get())
                 .map(instrument -> modelMapper.map(instrument, InstrumentDTO.class))
                 .collect(Collectors.toList());
     }
@@ -39,7 +40,7 @@ public class MusicStoreService {
         return instruments.stream()
                 .filter(instrument -> instrument.getId() == id)
                 .map(instrument -> modelMapper.map(instrument, InstrumentDTO.class))
-                .findAny()
+                .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find instrument"));
     }
 

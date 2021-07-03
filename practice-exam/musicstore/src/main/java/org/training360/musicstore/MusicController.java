@@ -38,6 +38,7 @@ public class MusicController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public InstrumentDTO createInstrument(@Valid @RequestBody CreateInstrumentCommand command) {
         return musicStoreService.createInstrument(command);
     }
@@ -48,7 +49,7 @@ public class MusicController {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Problem> handleNotFound(IllegalArgumentException e) {
 
         Problem problem = Problem.builder()
