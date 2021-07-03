@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.with;
 import static org.hamcrest.Matchers.equalTo;
@@ -45,5 +46,15 @@ public class LocationControllerRestAssuredIT {
                 .statusCode(200)
                 .body("[3].name", equalTo("Budapest"))
                 .body("size()", equalTo(4));
+    }
+
+    @Test
+    void schemaValidate() {
+
+        with()
+                .body(new CreateLocationCommand("Budapest", 47.1312, 19.2322))
+                .post("locations")
+                .then()
+                .body(matchesJsonSchemaInClasspath("location-dto.json"));
     }
 }
