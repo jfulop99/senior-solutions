@@ -9,11 +9,11 @@ public class MeetingRoomsController {
 
     private Scanner scanner = new Scanner(System.in);
 
-    private MeetingRoomsService meetingRoomsService =
-            new MeetingRoomsService(new InMemoryMeetingRoomsRepository());
-
 //    private MeetingRoomsService meetingRoomsService =
-//            new MeetingRoomsService(new MariaDbMeetingRoomsRepository());
+//            new MeetingRoomsService(new InMemoryMeetingRoomsRepository());
+
+    private MeetingRoomsService meetingRoomsService =
+            new MeetingRoomsService(new MariaDbMeetingRoomsRepository());
 
     public static void main(String[] args) {
         new MeetingRoomsController().start();

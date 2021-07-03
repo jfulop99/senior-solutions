@@ -1,18 +1,12 @@
 package meetingrooms;
 
-import java.text.Collator;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class MeetingRoomsService {
 
     private MeetingRoomsRepository meetingRoomsRepository;
 
-    private Collator collator = Collator.getInstance(new Locale("hu", "HU"));
+//    private Collator collator = Collator.getInstance(new Locale("hu", "HU"));
 
     public MeetingRoomsService(MeetingRoomsRepository meetingRoomsRepository) {
         this.meetingRoomsRepository = meetingRoomsRepository;
@@ -23,55 +17,31 @@ public class MeetingRoomsService {
     }
 
     public List<MeetingRoom> findAllOrderedByName(){
-        return meetingRoomsRepository.findAll()
-                .stream()
-                .sorted(Comparator.comparing(MeetingRoom::getName, collator))
-                .collect(Collectors.toList());
+        return meetingRoomsRepository.findAllOrderedByName();
     }
 
     public List<MeetingRoom> findAllReverseOrderedByName(){
-        return meetingRoomsRepository.findAll()
-                .stream()
-                .sorted(Comparator.comparing(MeetingRoom::getName, collator).reversed())
-                .collect(Collectors.toList());
+        return meetingRoomsRepository.findAllReverseOrderedByName();
     }
 
     public List<MeetingRoom> everySecondMeetingRooms(){
-        List<MeetingRoom> result = meetingRoomsRepository.findAll();
-        return IntStream.range(0, result.size())
-                .filter(n -> (n + 1) % 2 == 0)
-                .mapToObj(result::get)
-                .sorted(Comparator.comparing(MeetingRoom::getName, collator))
-                .collect(Collectors.toList());
+        return meetingRoomsRepository.everySecondMeetingRooms();
     }
 
     public List<MeetingRoom> findMeetingRoomsByAreas(){
-        return meetingRoomsRepository.findAll()
-                .stream()
-                .sorted(Comparator.comparing(MeetingRoom::getArea).reversed())
-                .collect(Collectors.toList());
+        return meetingRoomsRepository.findMeetingRoomsByAreas();
     }
 
     public MeetingRoom findMeetingRoomByName(String name) {
-        return meetingRoomsRepository.findAll()
-                .stream()
-                .filter(meetingRoom -> meetingRoom.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Nincs ilyen nevű terem!"));
+        return meetingRoomsRepository.findMeetingRoomByName(name);
     }
 
     public List<MeetingRoom> findMeetingRoomByPartOfName(String partOfName) {
-        return meetingRoomsRepository.findAll()
-                .stream()
-                .filter(meetingRoom -> meetingRoom.getName().contains(partOfName))
-                .collect(Collectors.toList());
+        return meetingRoomsRepository.findMeetingRoomByPartOfName(partOfName);
     }
 
     public List<MeetingRoom> findMeetingRoomByArea(int area) {
-        return meetingRoomsRepository.findAll()
-                .stream()
-                .filter(meetingRoom -> meetingRoom.getArea() > area)
-                .collect(Collectors.toList());
+        return meetingRoomsRepository.findMeetingRoomByArea(area);
     }
 
     public void deleteAll() {
