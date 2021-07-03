@@ -41,8 +41,8 @@ Accept: application/json
 
 {
   "name": " ",
-  "lat": 45.23456,
-  "lon": 19.234567
+  "lat": 91.23456,
+  "lon": 191.234567
 }
 
 ###
