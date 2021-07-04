@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,11 +18,12 @@ public class LocationsIT {
 
     @Test
     void getLocations(){
-        String message = locationsController.getLocationsList();
+        List<LocationDto> location = locationsController.getLocation(Optional.empty());
 
-        assertThat(message).startsWith(LocalDate.now().toString());
+        assertThat(location).hasSize(3)
+        .extracting(LocationDto::getName)
+        .contains("Bécs", "Budapest", "Prága");
 
-        assertThat(message).endsWith("Location{id=null, name='Prága', lat=48.497912, lon=19.040235}");
     }
 
 }
