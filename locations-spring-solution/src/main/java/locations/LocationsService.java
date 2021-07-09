@@ -1,11 +1,10 @@
 package locations;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.modelmapper.internal.bytebuddy.description.method.MethodDescription;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,9 +13,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@EnableConfigurationProperties(LocationProperties.class)
 public class LocationsService {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    private final LocationProperties locationProperties;
 
     private AtomicLong id = new AtomicLong();
 
@@ -24,10 +27,6 @@ public class LocationsService {
         new Location(id.incrementAndGet(),"Bécs",45.497912,19.040235),
         new Location(id.incrementAndGet(),"Budapest",47.497912,19.040235),
         new Location(id.incrementAndGet(),"Prága",48.497912,19.040235))));
-
-    public LocationsService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
 
     public List<Location> getLocationsList(){
         return new ArrayList<>(locations);
@@ -48,14 +47,20 @@ public class LocationsService {
     }
 
     public LocationDto createLocation(CreateLocationCommand command) {
-        Location location = new Location(id.incrementAndGet(), command.getName(), command.getLat(), command.getLon());
+
+        String name = locationProperties.getUppercase()? command.getName().toUpperCase() : command.getName();
+
+        Location location = new Location(id.incrementAndGet(), name, command.getLat(), command.getLon());
         locations.add(location);
         return modelMapper.map(location, LocationDto.class);
     }
 
     public LocationDto updateLocation(long id, UpdateLocationCommand command) {
+
+        String name = locationProperties.getUppercase()? command.getName().toUpperCase() : command.getName();
+
         Location location = getLocationById(id);
-        location.setName(command.getName());
+        location.setName(name);
         location.setLat(command.getLat());
         location.setLon(command.getLon());
         return modelMapper.map(location, LocationDto.class);
