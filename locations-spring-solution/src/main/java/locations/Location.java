@@ -44,6 +44,10 @@ public class Location {
         this.lat = lat;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setLon(double lon) {
         this.lon = lon;
     }

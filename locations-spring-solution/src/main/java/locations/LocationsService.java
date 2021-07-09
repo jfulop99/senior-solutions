@@ -23,6 +23,8 @@ import static org.springframework.util.StringUtils.capitalize;
 @Slf4j
 public class LocationsService {
 
+    private final LocationDao locationDao;
+
     private final ModelMapper modelMapper;
 
     private final LocationProperties locationProperties;
@@ -42,10 +44,14 @@ public class LocationsService {
 
     public List<LocationDto> getLocations(Optional<String> prefix){
 
-        return locations.stream()
-                .filter(l -> prefix.isEmpty() || l.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
+        return locationDao.findAll(prefix).stream()
                 .map(location -> modelMapper.map(location, LocationDto.class))
                 .collect(Collectors.toList());
+
+//        return locations.stream()
+//                .filter(l -> prefix.isEmpty() || l.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
+//                .map(location -> modelMapper.map(location, LocationDto.class))
+//                .collect(Collectors.toList());
 //        Type targetListType = new TypeToken<List<LocationDto>>(){}.getType();
 //        return modelMapper.map(locations, targetListType);
     }
@@ -58,8 +64,11 @@ public class LocationsService {
 
         String name = locationProperties.getUppercase()? capitalize(command.getName()) : command.getName();
 
-        Location location = new Location(id.incrementAndGet(), name, command.getLat(), command.getLon());
-        locations.add(location);
+//        Location location = new Location(id.incrementAndGet(), name, command.getLat(), command.getLon());
+//        locations.add(location);
+
+        Location location = locationDao.createLocation(new Location(name, command.getLat(), command.getLon()));
+
         log.info("Location has been created with id = {}", id);
         log.debug("Location has been created with name {} id = {}", name, id);
         return modelMapper.map(location, LocationDto.class);
@@ -67,12 +76,16 @@ public class LocationsService {
 
     public LocationDto updateLocation(long id, UpdateLocationCommand command) {
 
-        String name = locationProperties.getUppercase()? capitalize(command.getName()) : command.getName();
+        String name = locationProperties.getUppercase() ? capitalize(command.getName()) : command.getName();
 
-        Location location = getLocationById(id);
-        location.setName(name);
-        location.setLat(command.getLat());
-        location.setLon(command.getLon());
+//        Location location = getLocationById(id);
+//        location.setName(name);
+//        location.setLat(command.getLat());
+//        location.setLon(command.getLon());
+
+        Location location = new Location(id, name, command.getLat(), command.getLon());
+
+        locationDao.updateLocation(location);
 
         log.info("Location has been updated with id = {}", id);
         log.debug("Location has been updated with name {} id = {}", name, id);
@@ -81,20 +94,22 @@ public class LocationsService {
     }
 
     public void deleteLocation(long id) {
-        Location location = getLocationById(id);
-        locations.remove(location);
-    }
-
-    private Location getLocationById(long id){
-        return locations.stream()
-                .filter(l -> l.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new LocationNotFoundException("Location not found: id = " + id));
+//        Location location = getLocationById(id);
+//        locations.remove(location);
+        locationDao.deleteById(id);
     }
 
     public void deleteAllLocations() {
-        id = new AtomicLong();
-        locations.clear();
+//        id = new AtomicLong();
+//        locations.clear();
+        locationDao.deleteAll();
     }
 
+    private Location getLocationById(long id){
+        return locationDao.findById(id);
+//        return locations.stream()
+//                .filter(l -> l.getId() == id)
+//                .findFirst()
+//                .orElseThrow(() -> new LocationNotFoundException("Location not found: id = " + id));
+    }
 }

@@ -74,6 +74,11 @@ public class LocationsController {
     public void deleteLocation(@PathVariable("id") long id){
         locationsService.deleteLocation(id);
     }
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllLocation(){
+        locationsService.deleteAllLocations();
+    }
 
     @ExceptionHandler(LocationNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

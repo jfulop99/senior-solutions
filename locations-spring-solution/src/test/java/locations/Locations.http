@@ -3,11 +3,15 @@ GET http://localhost:8080/locations
 Accept: application/json
 
 ###
+GET http://localhost:8080/locations?prefix=x
+Accept: application/json
+
+###
 GET http://localhost:8080/locations
 Accept: application/xml
 
 ###
-GET http://localhost:8080/locations/6
+GET http://localhost:8080/locations/3
 Accept: application/json
 
 ###
@@ -57,7 +61,7 @@ Accept: application/json
 }
 
 ###
-DELETE http://localhost:8080/locations/5
+DELETE http://localhost:8080/locations/
 
 
 
