@@ -1,7 +1,10 @@
 package locations;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +20,14 @@ import static org.springframework.util.StringUtils.capitalize;
 @Service
 @RequiredArgsConstructor
 @EnableConfigurationProperties(LocationProperties.class)
+@Slf4j
 public class LocationsService {
 
     private final ModelMapper modelMapper;
 
     private final LocationProperties locationProperties;
+
+//    private static final Logger log = LoggerFactory.getLogger(LocationsService.class);
 
     private AtomicLong id = new AtomicLong();
 
@@ -54,6 +60,8 @@ public class LocationsService {
 
         Location location = new Location(id.incrementAndGet(), name, command.getLat(), command.getLon());
         locations.add(location);
+        log.info("Location has been created with id = {}", id);
+        log.debug("Location has been created with name {} id = {}", name, id);
         return modelMapper.map(location, LocationDto.class);
     }
 
@@ -65,6 +73,10 @@ public class LocationsService {
         location.setName(name);
         location.setLat(command.getLat());
         location.setLon(command.getLon());
+
+        log.info("Location has been updated with id = {}", id);
+        log.debug("Location has been updated with name {} id = {}", name, id);
+
         return modelMapper.map(location, LocationDto.class);
     }
 
