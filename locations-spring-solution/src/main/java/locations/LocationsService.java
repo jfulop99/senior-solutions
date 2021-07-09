@@ -12,6 +12,8 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+import static org.springframework.util.StringUtils.capitalize;
+
 @Service
 @RequiredArgsConstructor
 @EnableConfigurationProperties(LocationProperties.class)
@@ -48,7 +50,7 @@ public class LocationsService {
 
     public LocationDto createLocation(CreateLocationCommand command) {
 
-        String name = locationProperties.getUppercase()? command.getName().toUpperCase() : command.getName();
+        String name = locationProperties.getUppercase()? capitalize(command.getName()) : command.getName();
 
         Location location = new Location(id.incrementAndGet(), name, command.getLat(), command.getLon());
         locations.add(location);
@@ -57,7 +59,7 @@ public class LocationsService {
 
     public LocationDto updateLocation(long id, UpdateLocationCommand command) {
 
-        String name = locationProperties.getUppercase()? command.getName().toUpperCase() : command.getName();
+        String name = locationProperties.getUppercase()? capitalize(command.getName()) : command.getName();
 
         Location location = getLocationById(id);
         location.setName(name);

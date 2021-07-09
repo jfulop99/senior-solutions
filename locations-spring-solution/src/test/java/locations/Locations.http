@@ -20,7 +20,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Kukutyin",
+  "name": "kukutyin",
   "lat": 45.23456,
   "lon": 19.234567
 }
