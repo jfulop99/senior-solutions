@@ -65,7 +65,7 @@ public class LocationDao {
     }
 
     public void deleteAll(){
-        jdbcTemplate.update("DELETE FROM locations");
+        jdbcTemplate.execute("TRUNCATE TABLE locations RESTART IDENTITY");
     }
 
     private static Location mapRow(ResultSet resultSet, int i) throws SQLException{
