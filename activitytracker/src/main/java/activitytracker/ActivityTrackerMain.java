@@ -9,23 +9,15 @@ import java.util.List;
 public class ActivityTrackerMain {
 
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
-        EntityManager em = entityManagerFactory.createEntityManager();
 
-        insertSomeActivities(em);
-
-        List<Activity> activities = em.createQuery("select e from Activity e", Activity.class)
-                .getResultList();
-
-        System.out.println(activities);
-
-        em.close();
-        entityManagerFactory.close();
-
+        insertSomeActivities();
 
     }
 
-    private static void insertSomeActivities(EntityManager em) {
+    private static void insertSomeActivities() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
+        EntityManager em = entityManagerFactory.createEntityManager();
+
         em.getTransaction().begin();
 
         Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 12, 0), "First", ActivityType.BIKING);
@@ -38,5 +30,13 @@ public class ActivityTrackerMain {
         em.persist(activity);
 
         em.getTransaction().commit();
+
+        List<Activity> activities = em.createQuery("select e from Activity e", Activity.class)
+                .getResultList();
+
+        System.out.println(activities);
+
+        em.close();
+        entityManagerFactory.close();
     }
 }
