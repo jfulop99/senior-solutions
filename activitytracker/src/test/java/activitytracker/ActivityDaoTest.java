@@ -21,18 +21,19 @@ class ActivityDaoTest {
     @BeforeEach
     void setUp() throws SQLException {
 
-        MariaDbDataSource mariaDbDataSource = new MariaDbDataSource();
-        mariaDbDataSource.setUrl("jdbc:mariadb://localhost:3306/activitytracker_jpa");
-        mariaDbDataSource.setUser("activitytracker");
-        mariaDbDataSource.setPassword("activitytracker");
-
-        Flyway flyway = Flyway.configure().dataSource(mariaDbDataSource).load();
-        flyway.clean();
-        flyway.migrate();
-
+//        MariaDbDataSource mariaDbDataSource = new MariaDbDataSource();
+//        mariaDbDataSource.setUrl("jdbc:mariadb://localhost:3306/activitytracker_jpa");
+//        mariaDbDataSource.setUser("activitytracker");
+//        mariaDbDataSource.setPassword("activitytracker");
+//
+//        Flyway flyway = Flyway.configure().dataSource(mariaDbDataSource).load();
+//        flyway.clean();
+//        flyway.migrate();
+//
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         activityDao = new ActivityDao(entityManagerFactory);
 
+        activityDao.deleteAllActivities();
     }
 
     @Test
@@ -65,6 +66,23 @@ class ActivityDaoTest {
                 .hasSize(2)
                 .extracting(Activity::getDesc)
                 .containsExactly("First", "Second");
+
+    }
+
+    @Test
+    void testSaveThenUpdate(){
+        Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 21, 30), "First", ActivityType.BIKING);
+        activityDao.saveActivity(activity);
+
+        Long id = activity.getId();
+
+        activityDao.updateActivity(id, "Updated First");
+
+        activity = activityDao.findActivityById(id);
+
+        assertEquals("Updated First", activity.getDesc());
+        assertEquals(LocalDateTime.of(2021, 7, 1, 21, 30), activity.getStartTime());
+        assertEquals(ActivityType.BIKING, activity.getType());
 
     }
 

@@ -33,9 +33,26 @@ public class Activity {
     @Column(name = "activity_type", nullable = false, length = 20)
     private ActivityType type;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     public Activity(LocalDateTime startTime, String desc, ActivityType type) {
         this.startTime = startTime;
         this.desc = desc;
         this.type = type;
     }
+
+    @PrePersist
+    public void debugPersist(){
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void debugUpdate(){
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }

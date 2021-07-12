@@ -27,6 +27,7 @@ public class ActivityDao {
     public Activity findActivityById(long id){
         EntityManager em = entityManagerFactory.createEntityManager();
         Activity activity = em.find(Activity.class, id);
+        em.close();
         return activity;
     }
 
@@ -36,6 +37,22 @@ public class ActivityDao {
                 .getResultList();
         em.close();
         return activities;
+    }
+
+    public void updateActivity(long id, String desc){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Activity activity = em.find(Activity.class, id);
+
+
+        em.getTransaction().begin();
+        activity.setDesc(desc);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void deleteAllActivities(){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.createNativeQuery("TRUNCATE TABLE activities");
     }
 
 }
