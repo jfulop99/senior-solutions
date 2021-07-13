@@ -31,6 +31,17 @@ public class ActivityDao {
         return activity;
     }
 
+    public Activity findActivityByIdWithLabels(long id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        Activity activity = em
+                .createQuery("select a from Activity a join fetch a.labels where a.id = :id", Activity.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.close();
+        return activity;
+    }
+
     public List<Activity> listActivities(){
         EntityManager em = entityManagerFactory.createEntityManager();
         List<Activity> activities = em.createQuery("select a from Activity a order by a.id", Activity.class)
@@ -53,6 +64,8 @@ public class ActivityDao {
     public void deleteAllActivities(){
         EntityManager em = entityManagerFactory.createEntityManager();
         em.createNativeQuery("TRUNCATE TABLE activities");
+        em.createNativeQuery("TRUNCATE TABLE labels");
+        em.close();
     }
 
 }

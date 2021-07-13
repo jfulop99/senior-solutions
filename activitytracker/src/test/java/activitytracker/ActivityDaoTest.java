@@ -86,4 +86,18 @@ class ActivityDaoTest {
 
     }
 
+    @Test
+    void testLabels(){
+        Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 21, 30), "First", ActivityType.BIKING);
+        activity.setLabels(List.of("Balaton", "Nyár", "Család"));
+        activityDao.saveActivity(activity);
+        Long id = activity.getId();
+
+        Activity otherActivity = activityDao.findActivityByIdWithLabels(id);
+
+        assertThat(otherActivity.getLabels())
+                .hasSize(3)
+                .containsExactly("Balaton", "Nyár", "Család");
+    }
+
 }

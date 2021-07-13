@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -38,6 +39,11 @@ public class Activity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ElementCollection
+    @CollectionTable(name = "labels", joinColumns = @JoinColumn(name = "activity_id"))
+    @Column(name = "activity_label")
+    private List<String> labels;
 
     public Activity(LocalDateTime startTime, String desc, ActivityType type) {
         this.startTime = startTime;
