@@ -129,7 +129,17 @@ class ActivityDaoTest {
         Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 12,00), "First", ActivityType.BIKING);
         activityDao.saveActivity(activity);
 
-        activityDao.addTrackPoint(activity.getId(), new TrackPoint(LocalDateTime.of(2021, 7, 1, 12, 1), 47.191817, 19.1817));
+        Long id = activity.getId();
+        activityDao.addTrackPoint(id, new TrackPoint(LocalDateTime.of(2021, 7, 1, 12, 1), 47.191817, 19.1817));
+
+        Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(id);
+
+        assertThat(anotherActivity.getTrackPoints())
+                .hasSize(1)
+                .extracting(TrackPoint::getTime)
+                .contains(LocalDateTime.of(2021, 7, 1, 12, 1));
+
+
     }
 
 }
