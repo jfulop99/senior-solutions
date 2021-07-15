@@ -33,7 +33,7 @@ class ActivityDaoTest {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         activityDao = new ActivityDao(entityManagerFactory);
 
-        activityDao.deleteAllActivities();
+        //activityDao.deleteAllActivities();
     }
 
     @Test
@@ -98,6 +98,38 @@ class ActivityDaoTest {
         assertThat(otherActivity.getLabels())
                 .hasSize(3)
                 .containsExactly("Balaton", "Nyár", "Család");
+    }
+
+    @Test
+    void testTrackPoint(){
+
+        TrackPoint trackPoint1 = new TrackPoint(LocalDateTime.of(2021, 7, 1, 12, 1), 47.191817, 19.1817);
+        TrackPoint trackPoint2 = new TrackPoint(LocalDateTime.of(2021, 7, 2, 12, 2), 47.211817, 19.2017);
+
+        Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 12,0), "First", ActivityType.BIKING);
+        activity.addTrackPoint(trackPoint2);
+        activity.addTrackPoint(trackPoint1);
+        activityDao.saveActivity(activity);
+
+        Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activity.getId());
+
+        assertThat(anotherActivity.getTrackPoints())
+                .hasSize(2)
+                .extracting(TrackPoint::getTime)
+                .containsExactly(LocalDateTime.of(2021, 7, 1, 12, 1),
+                        LocalDateTime.of(2021, 7, 2, 12, 2));
+
+        assertEquals(LocalDateTime.of(2021, 7, 1, 12, 1),
+                anotherActivity.getTrackPoints().get(0).getTime());
+    }
+
+
+    @Test
+    void testAddTrackPoint(){
+        Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 12,00), "First", ActivityType.BIKING);
+        activityDao.saveActivity(activity);
+
+        activityDao.addTrackPoint(activity.getId(), new TrackPoint(LocalDateTime.of(2021, 7, 1, 12, 1), 47.191817, 19.1817));
     }
 
 }
