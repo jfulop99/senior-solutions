@@ -4,16 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookedInterval {
+public class BookedDateDto {
 
-    private LocalDateTime startTime;
+    private String taxId;
 
-    private LocalDateTime endTime;
+    private String codeOfAffair;
 
+    private FutureInterval futureInterval;
 
 }

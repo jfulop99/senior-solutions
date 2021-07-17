@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TypeOfAffair {
+public class BookedDate {
 
-    private String code;
+    private String taxId;
 
-    private String name;
+    private String codeOfAffair;
 
+    private FutureInterval futureInterval;
 }
