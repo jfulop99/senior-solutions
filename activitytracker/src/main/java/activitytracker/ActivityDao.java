@@ -101,8 +101,29 @@ public class ActivityDao {
                 .setFirstResult(start)
                 .setMaxResults(max)
                 .getResultList();
+        em.close();
         return coordinates;
     }
 
+    public List<Object[]> findTrackPointCountByActivity(){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<Object[]> resultList = em
+                .createQuery("select a.desc, count(b) from Activity a join a.trackPoints b group by a.desc", Object[].class)
+                .getResultList();
+        em.close();
+        return resultList;
+    }
+
+    public void removeActivitiesByDateAndType(LocalDateTime afterThis, ActivityType type){
+
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        em.createQuery("delete from Activity a where a.startTime > :afterThis and a.type = :type")
+                .setParameter("afterThis", afterThis)
+                .setParameter("type", type)
+                .executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+    }
 
 }

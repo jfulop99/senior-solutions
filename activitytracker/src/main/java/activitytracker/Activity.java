@@ -3,6 +3,8 @@ package activitytracker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -46,10 +48,13 @@ public class Activity {
     @ElementCollection
     @CollectionTable(name = "labels", joinColumns = @JoinColumn(name = "activity_id"))
     @Column(name = "activity_label")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "id")
     private List<String> labels;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "activity")
     @OrderBy("time")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<TrackPoint> trackPoints;
 
     public Activity(LocalDateTime startTime, String desc, ActivityType type) {
