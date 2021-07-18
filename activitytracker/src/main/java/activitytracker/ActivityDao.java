@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedQuery;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ActivityDao {
 
@@ -88,6 +91,17 @@ public class ActivityDao {
         em.persist(trackPoint);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public List<Coordinate> findTrackPointCoordinatesByDate(LocalDateTime afterThis, int start, int max){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<Coordinate> coordinates = em
+                .createNamedQuery("findTrackPointCoordinatesByDate", Coordinate.class)
+                .setParameter("afterThis", afterThis)
+                .setFirstResult(start)
+                .setMaxResults(max)
+                .getResultList();
+        return coordinates;
     }
 
 

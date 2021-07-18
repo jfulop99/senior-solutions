@@ -38,5 +38,6 @@ public class ActivityTrackerMain {
 
         em.close();
         entityManagerFactory.close();
+
     }
 }

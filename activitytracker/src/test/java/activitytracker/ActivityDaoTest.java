@@ -142,4 +142,37 @@ class ActivityDaoTest {
 
     }
 
+    @Test
+    void findTrackPointCoordinatesByDate() {
+
+        Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 12,0), "First", ActivityType.BIKING);
+        for (int i = 0; i < 20; i++) {
+            TrackPoint trackPoint = new TrackPoint(LocalDateTime.of(2021, 7, 1, 12, i), 47.1 + i * 0.001, 19.1817);
+            activity.addTrackPoint(trackPoint);
+        }
+        activityDao.saveActivity(activity);
+
+        activity = new Activity(LocalDateTime.of(2017, 7, 1, 12,0), "Second", ActivityType.HIKING);
+        for (int i = 0; i < 20; i++) {
+            TrackPoint trackPoint = new TrackPoint(LocalDateTime.of(2017, 7, 1, 12, i), 47.2 + i * 0.001, 19.1817);
+            activity.addTrackPoint(trackPoint);
+        }
+        activityDao.saveActivity(activity);
+
+        activity = new Activity(LocalDateTime.of(2021, 8, 2, 12,0), "Third", ActivityType.RUNNING);
+        for (int i = 0; i < 30; i++) {
+            TrackPoint trackPoint = new TrackPoint(LocalDateTime.of(2021, 8, 2, 12, i), 47.3 + i * 0.001, 19.1817);
+            activity.addTrackPoint(trackPoint);
+        }
+        activityDao.saveActivity(activity);
+
+        List<Coordinate> coordinates = activityDao.findTrackPointCoordinatesByDate(LocalDateTime.of(2018, 1, 1, 0, 0), 30, 10);
+
+        assertEquals(10, coordinates.size());
+
+        assertEquals(47.310, coordinates.get(0).getLat(), 0.0005);
+
+
+
+    }
 }

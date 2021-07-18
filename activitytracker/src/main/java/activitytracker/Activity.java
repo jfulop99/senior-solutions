@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "activities")
+@NamedQuery(name = "findTrackPointCoordinatesByDate",
+        query = "select new activitytracker.Coordinate(t.lat, t.lon) from Activity a join a.trackPoints t where a.startTime > :afterThis order by a.id , t.id")
 public class Activity {
 
     @TableGenerator(name = "Act_Gen",

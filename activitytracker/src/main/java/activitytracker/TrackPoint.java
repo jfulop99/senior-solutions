@@ -1,8 +1,6 @@
 package activitytracker;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,6 +27,8 @@ public class TrackPoint {
 
     @ManyToOne
     @JoinColumn(name = "act_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Activity activity;
 
     public TrackPoint(LocalDateTime time, double lat, double lon) {
