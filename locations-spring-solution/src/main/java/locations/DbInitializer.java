@@ -5,13 +5,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class DbInitializer implements CommandLineRunner {
 
-    @Autowired
+//    @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Override
+//    @Override
     public void run(String... args) throws Exception {
         jdbcTemplate.execute(
                 "CREATE TABLE locations (id bigint auto_increment, location_name varchar(255), lat double, lon double, primary key (id))"

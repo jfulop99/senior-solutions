@@ -44,8 +44,8 @@ public class LocationControllerRestAssuredIT {
                 .get("locations")
                 .then()
                 .statusCode(200)
-                .body("[3].name", equalTo("Budapest"))
-                .body("size()", equalTo(4));
+                .body("[0].name", equalTo("Budapest"))
+                .body("size()", equalTo(1));
     }
 
     @Test

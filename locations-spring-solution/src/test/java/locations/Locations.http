@@ -3,7 +3,7 @@ GET http://localhost:8080/locations
 Accept: application/json
 
 ###
-GET http://localhost:8080/locations?prefix=x
+GET http://localhost:8080/locations?prefix=uty
 Accept: application/json
 
 ###

@@ -15,6 +15,6 @@ class LocationsServiceTest {
 
         String message = locationsService.getLocationsList().toString();
 
-        assertThat(message).startsWith("[Location{id=");
+        assertThat(message).startsWith("[Location(id=");
     }
 }
