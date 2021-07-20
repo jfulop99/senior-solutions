@@ -49,8 +49,8 @@ public class LocationsService {
 
         String name = "%" + prefix.orElse("") + "%";
 
-        return locationRepository.findAllByName(name).stream()
-//                .filter(l -> prefix.isEmpty() || l.getName().toLowerCase().startsWith(prefix.get().toLowerCase()))
+        return locationRepository.findAllByNameLike(name)
+                .stream()
                 .map(location -> modelMapper.map(location, LocationDto.class))
                 .collect(Collectors.toList());
 
