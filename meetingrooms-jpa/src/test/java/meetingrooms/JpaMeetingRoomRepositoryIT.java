@@ -16,19 +16,104 @@ class JpaMeetingRoomRepositoryIT {
     MeetingRoomRepository meetingRoomRepository = new JpaMeetingRoomRepository(entityManagerFactory);
 
     @Test
-    void add() {
-        meetingRoomRepository.add("Első", 1, 1);
-        meetingRoomRepository.add("Második", 2, 2);
-        meetingRoomRepository.add("Harmadik", 3, 3);
+    void saveTest() {
+        MeetingRoom meetingRoom = meetingRoomRepository.save("Első", 1, 1);
 
-        List<String> meetingRooms = meetingRoomRepository.findAll();
-
-        assertThat(meetingRooms)
-                .hasSize(3)
-                .containsExactly("Első", "Második", "Harmadik");
+        assertEquals("Első", meetingRoom.getName());
     }
 
     @Test
-    void findAll() {
+    void getMeetingroomsOrderedByNameTest() {
+        meetingRoomRepository.save("Első", 1, 1);
+        meetingRoomRepository.save("Második", 2, 2);
+        meetingRoomRepository.save("Harmadik", 3, 3);
+
+        List<String> meetingRooms = meetingRoomRepository.getMeetingroomsOrderedByName();
+
+        assertThat(meetingRooms)
+                .hasSize(3)
+                .containsExactly("Első", "Harmadik", "Második");
     }
+
+    @Test
+    void getEverySecondMeetingRoomTest(){
+        meetingRoomRepository.save("Első", 1, 1);
+        meetingRoomRepository.save("XMásodik", 2, 2);
+        meetingRoomRepository.save("Harmadik", 3, 3);
+        meetingRoomRepository.save("Negyedik", 4, 4);
+
+        List<String> meetingRooms = meetingRoomRepository.getEverySecondMeetingRoom();
+
+        assertThat(meetingRooms)
+                .hasSize(2)
+                .containsExactly("Negyedik", "XMásodik");
+
+    }
+
+    @Test
+    void getMeetingRoomsTest(){
+        meetingRoomRepository.save("Első", 1, 1);
+        meetingRoomRepository.save("Második", 2, 2);
+        meetingRoomRepository.save("Harmadik", 3, 3);
+
+        List<MeetingRoom> meetingRooms = meetingRoomRepository.getMeetingRooms();
+
+        assertThat(meetingRooms)
+                .hasSize(3)
+                .extracting(MeetingRoom::getName)
+                .containsExactly("Első", "Második", "Harmadik");
+
+    }
+
+    @Test
+    void getExactMeetingRoomByNameTest(){
+        meetingRoomRepository.save("Első", 1, 1);
+        meetingRoomRepository.save("Második", 2, 2);
+        meetingRoomRepository.save("Harmadik", 3, 3);
+        meetingRoomRepository.save("első", 6, 6);
+
+        List<MeetingRoom> meetingRooms = meetingRoomRepository.getExactMeetingRoomByName("Első");
+
+        assertThat(meetingRooms)
+                .hasSize(2)
+                .extracting(MeetingRoom::getName)
+                .containsExactly("Első", "első");
+
+
+    }
+
+    @Test
+    void getMeetingRoomsByPrefixTest(){
+        meetingRoomRepository.save("Első", 1, 1);
+        meetingRoomRepository.save("Második", 2, 2);
+        meetingRoomRepository.save("Harmadik", 3, 3);
+        meetingRoomRepository.save("első", 6, 6);
+
+        List<MeetingRoom> meetingRooms = meetingRoomRepository.getMeetingRoomsByPrefix("els");
+
+        assertThat(meetingRooms)
+                .hasSize(2)
+                .extracting(MeetingRoom::getName)
+                .containsExactly("Első", "első");
+
+    }
+
+    @Test
+    void deleteAllTest(){
+        meetingRoomRepository.save("Első", 1, 1);
+        meetingRoomRepository.save("Második", 2, 2);
+        meetingRoomRepository.save("Harmadik", 3, 3);
+
+        List<MeetingRoom> meetingRooms = meetingRoomRepository.getMeetingRooms();
+
+        assertEquals(3, meetingRooms.size());
+
+        meetingRoomRepository.deleteAll();
+
+        meetingRooms = meetingRoomRepository.getMeetingRooms();
+
+        assertEquals(0, meetingRooms.size());
+
+    }
+
 }

@@ -1,14 +1,18 @@
 package meetingrooms;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Table(name = "meeting_rooms")
+@NamedQuery(name = "findbyname", query = "select a.name from MeetingRoom a order by a.name")
 public class MeetingRoom {
 
     @Id
