@@ -8,3 +8,5 @@
 * [ ] Fighter game
 * [ ] Kalózok
 * [ ] Légitársaság
+* [x] Doggo
+* [ ] Multimédia
