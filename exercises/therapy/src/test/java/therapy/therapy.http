@@ -1,0 +1,34 @@
+POST http://localhost:8081/therapy
+Content-Type: application/json
+
+{
+  "therapist": "Nagy Pista",
+  "location": "2. kezelő",
+  "time": "2021-08-02T13:30:00"
+}
+
+###
+PUT http://localhost:8081/therapy/1
+Content-Type: application/json
+
+{
+  "name": "Beteg Béla"
+}
+
+###
+GET http://localhost:8081/therapy/
+Accept: application/json
+
+###
+POST http://localhost:8081/therapy
+Content-Type: application/json
+
+{
+  "therapist": "",
+  "location": null,
+  "time": "2021-06-02T13:30:00"
+}
+
+###
+DELETE http://localhost:8081/therapy/1?name=Beteg%20Béla
+

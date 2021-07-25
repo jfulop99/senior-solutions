@@ -1,20 +1,19 @@
 package therapy;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @NoArgsConstructor
 public class Therapy {
 
@@ -41,17 +40,4 @@ public class Therapy {
         this.time = time;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Therapy therapy = (Therapy) o;
-
-        return Objects.equals(id, therapy.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 793722864;
-    }
 }
