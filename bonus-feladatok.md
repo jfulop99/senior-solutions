@@ -3,7 +3,7 @@
 * [ ] Oltás
 * [ ] Minastirith - létező kódhoz kell unitteszteket írni
 * [ ] Matematikusok (validáció)
-* [ ] Terápia
+* [x] Terápia
 * [ ] Bank
 * [ ] Fighter game
 * [ ] Kalózok
