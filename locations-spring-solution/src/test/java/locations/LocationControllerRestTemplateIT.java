@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
@@ -14,18 +15,14 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql(statements = "delete from locations" )
 public class LocationControllerRestTemplateIT {
 
     @Autowired
     TestRestTemplate template;
 
-    @Autowired
-    LocationsService locationsService;
-
     @RepeatedTest(value = 2)
     void testGetLocations() {
-
-        locationsService.deleteAllLocations();
 
         LocationDto locationDto =
                 template.postForObject("/locations", new CreateLocationCommand("Kukutyin", 54.234567, 19.123456), LocationDto.class);

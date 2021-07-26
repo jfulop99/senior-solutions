@@ -30,4 +30,4 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [x] Spring JdbcTemplate
 * [x] Spring Data JPA
 * [x] MariaDB
-* [ ] Integrációs tesztelés
+* [x] Integrációs tesztelés
