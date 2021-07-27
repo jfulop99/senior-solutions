@@ -1,0 +1,32 @@
+GET http://localhost:8081/api/mathematicians
+Accept: application/json
+
+###
+POST http://localhost:8081/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "Lobacsovszkij",
+  "birthDay": "1900-02-13",
+  "favoriteTopics": [
+    "Szorzás",
+    "Osztás"
+  ],
+  "favoritePrime": "23"
+}
+
+###
+POST http://localhost:8081/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "",
+  "birthDay": "2022-02-13",
+  "favoriteTopics": [
+  ],
+  "favoritePrime": "21"
+}
+
+###
+
+
