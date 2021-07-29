@@ -30,5 +30,14 @@ public class AreaDao {
         return area;
     }
 
+    public Area findById(Long id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Area area = em.createQuery("select a from Area a join fetch a.cities where a.id = :id", Area.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.close();
+        return area;
+    }
+
 
 }

@@ -62,4 +62,18 @@ class AreaDaoTest {
 
     }
 
+    @Test
+    void testSaveWithCityAndFind(){
+        Area area = new Area("Balaton");
+        area.getCities().put("Balatonfenyves", new City("Balatonfenyves", 3000));
+        area.getCities().put("Balatonszemes", new City("Balatonszemes", 4000));
+
+        areaDao.saveArea(area);
+        Long id = area.getId();
+
+        Area anotherArea = areaDao.findById(id);
+        assertEquals(3000, anotherArea.getCities().get("Balatonfenyves").getPopulation());
+
+    }
+
 }
