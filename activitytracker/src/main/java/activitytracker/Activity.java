@@ -57,6 +57,9 @@ public class Activity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<TrackPoint> trackPoints;
 
+    @ManyToMany(mappedBy = "activities")
+    private List<Area> areas = new ArrayList<>();
+
     public Activity(LocalDateTime startTime, String desc, ActivityType type) {
         this.startTime = startTime;
         this.desc = desc;
