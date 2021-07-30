@@ -12,7 +12,7 @@
 * [x] Több-több kapcsolatok
 * [x] Entitások mapekben
 * [x] Beágyazott objektumok és másodlagos tábla
-* [ ] Öröklődés
+* [x] Öröklődés
 * [x] Lekérdezések
 * [x] Haladó lekérdezések
 * [x] Bulk műveletek
