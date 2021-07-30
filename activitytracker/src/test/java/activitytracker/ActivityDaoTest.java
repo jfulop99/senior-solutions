@@ -241,4 +241,22 @@ class ActivityDaoTest {
                 .contains("First", "Third", "Fourth", "Fifth");
 
     }
+
+    @Test
+    void testActivityWithDetails(){
+
+        Activity activity = new Activity(LocalDateTime.of(2021, 7, 1, 21, 30), "First", ActivityType.BIKING);
+
+        activity.setDistance(25);
+        activity.setDuration(3600);
+
+        activityDao.saveActivity(activity);
+
+        Activity anotherActivity = activityDao.findActivityById(activity.getId());
+
+        assertEquals(25, activity.getDistance());
+        assertEquals(3600, activity.getDuration());
+
+
+    }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "activities")
+@SecondaryTable(name = "activity_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "activity_id"))
 @NamedQuery(name = "findTrackPointCoordinatesByDate",
         query = "select new activitytracker.Coordinate(t.lat, t.lon) from Activity a join a.trackPoints t where a.startTime > :afterThis order by a.id , t.id")
 public class Activity {
@@ -59,6 +60,14 @@ public class Activity {
 
     @ManyToMany(mappedBy = "activities")
     private List<Area> areas = new ArrayList<>();
+
+    @Column(table = "activity_details")
+    private int distance;
+
+    @Column(table = "activity_details")
+    private int duration;
+
+
 
     public Activity(LocalDateTime startTime, String desc, ActivityType type) {
         this.startTime = startTime;
