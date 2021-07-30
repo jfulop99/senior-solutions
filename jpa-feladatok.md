@@ -16,4 +16,4 @@
 * [x] Lekérdezések
 * [x] Haladó lekérdezések
 * [x] Bulk műveletek
-* [ ] JPA Spring Boottal
+* [x] JPA Spring Boottal
