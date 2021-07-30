@@ -31,3 +31,5 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [x] Spring Data JPA
 * [x] MariaDB
 * [x] Integrációs tesztelés
+* [x] Alkalmazás futtatása Dockerben MariaDB-vel
+* [x] Séma inicializálás Flyway-jel
